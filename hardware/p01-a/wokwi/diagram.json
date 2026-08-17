@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "author": "MURMUR",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-pi-pico", "id": "pico", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-buzzer", "id": "haptic", "top": -80, "left": 240, "rotate": 90, "attrs": { "volume": "0.15" } },
+    { "type": "wokwi-pushbutton", "id": "test", "top": 130, "left": 240, "attrs": { "color": "green", "label": "P01-A TEST" } },
+    { "type": "wokwi-led", "id": "status", "top": 80, "left": 430, "attrs": { "color": "blue" } },
+    { "type": "wokwi-resistor", "id": "status_r", "top": 80, "left": 350, "rotate": 90, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    [ "pico:GP20", "haptic:1", "green", [] ],
+    [ "haptic:2", "pico:GND.1", "black", [] ],
+    [ "pico:GP21", "test:1.l", "green", [] ],
+    [ "test:2.l", "pico:GND.2", "black", [] ],
+    [ "pico:GP25", "status_r:1", "blue", [] ],
+    [ "status_r:2", "status:A", "blue", [] ],
+    [ "status:C", "pico:GND.3", "black", [] ],
+    [ "pico:GP0", "$serialMonitor:RX", "green", [] ],
+    [ "pico:GP1", "$serialMonitor:TX", "green", [] ]
+  ],
+  "dependencies": {}
+}
