@@ -1,107 +1,64 @@
 {
-  "schema": "murmur-cirkit-build",
-  "version": "1.0.0",
-  "name": "MURMUR P01-A Complete Low-Voltage Prototype",
-  "notes": "Authoritative machine-readable build. Production high-power optical hardware is intentionally excluded; visible and IR channels are low-power bench loads.",
-  "controllers": {
-    "U1": {"part":"Raspberry Pi Pico 2 / RP2350", "role":"authoritative controller"},
-    "U2": {"part":"ESP32-S3", "label":"BRUCE", "role":"non-authoritative UI/telemetry"},
-    "U3": {"part":"ESP32-C3/S3", "label":"ESP_AUX", "role":"optional non-authoritative auxiliary telemetry"}
+  "schema":"murmur-cirkit-build",
+  "version":"2.0.0",
+  "name":"MURMUR P01-A Complete Low-Voltage Prototype",
+  "purpose":"Single coherent Cirkit-ready source definition covering controller, Bruce, auxiliary ESP, sensing, haptics, storage, visible light, low-power IR test emitter, interlock, independent timer proofs, low-voltage switched test load, feedback, power domains and test points.",
+  "safety_boundary":"Production/high-power optical hardware is excluded from simulation. Visible and IR are benign low-power bench loads only.",
+  "controllers":{
+    "U1":{"part":"Raspberry Pi Pico 2 / RP2350","role":"authoritative deterministic controller"},
+    "U2":{"part":"ESP32-S3","label":"BRUCE","role":"non-authoritative operator UI and telemetry"},
+    "U3":{"part":"ESP32-C3/S3","label":"ESP_AUX","role":"optional non-authoritative auxiliary telemetry"}
   },
-  "devices": {
-    "U4":{"part":"LIS2DU12 or LIS3DH","bus":"I2C","address":"0x18/0x19"},
-    "U5":{"part":"AS7343","bus":"I2C","address":"0x39"},
-    "U6":{"part":"DRV2605L","bus":"I2C","address":"0x5A"},
-    "U7":{"part":"microSD 3.3V","bus":"SPI"},
-    "U8":{"part":"LTC6993","label":"TIMER_A"},
-    "U9":{"part":"LTC6993","label":"TIMER_B"},
-    "U10":{"part":"TPS22919B or validated equivalent","role":"low-voltage load switch"},
-    "U11":{"part":"PCA9685","address":"0x40","role":"LED/aux PWM expander"},
-    "Q1":{"part":"2N2222A or equivalent small NPN","role":"IR low-power driver"},
-    "Q2":{"part":"logic-level N-MOSFET, small-signal","role":"visible LED/load driver if required"},
-    "D1":{"part":"5mm or SMD visible LED","role":"status/visible test emitter"},
-    "D2":{"part":"850nm low-power IR LED","role":"IR bench test emitter"},
-    "H1":{"part":"DRV2605L-compatible vibration motor"},
+  "gpio":{
+    "GP4":"I2C_SDA","GP5":"I2C_SCL","GP6":"LOAD_EN","GP7":"INTERLOCK_PROOF","GP8":"FAULT_IN_ACTIVE_LOW","GP9":"TIMER_A_OK","GP10":"TIMER_B_OK","GP11":"LOAD_FB","GP16":"SD_MISO","GP17":"SD_CS","GP18":"SD_SCK","GP19":"SD_MOSI","GP20":"HAPTIC_CTRL","GP21":"USER_TEST_ACTIVE_LOW","GP25":"STATUS_LED"
+  },
+  "devices":{
+    "U4":{"part":"LIS2DU12 or LIS3DH","bus":"I2C","address":"0x18/0x19","role":"motion"},
+    "U5":{"part":"AS7343","bus":"I2C","address":"0x39","role":"spectral ambient"},
+    "U6":{"part":"DRV2605L + vibration motor","bus":"I2C","address":"0x5A","role":"haptics"},
+    "U7":{"part":"3.3V microSD","bus":"SPI","role":"logging"},
+    "U8":{"part":"LTC6993","label":"TIMER_A","role":"independent hardware timeout proof"},
+    "U9":{"part":"LTC6993","label":"TIMER_B","role":"independent hardware timeout proof"},
+    "U10":{"part":"TPS22919B or validated equivalent","role":"final low-voltage load switch"},
+    "U11":{"part":"PCA9685","address":"0x40","role":"visible/auxiliary PWM expansion"},
+    "Q1":{"part":"small-signal transistor or logic-level MOSFET","role":"IR low-power driver"},
+    "Q2":{"part":"small-signal logic-level MOSFET","role":"visible LED driver where required"},
+    "D1":{"part":"low-power visible LED or RGB LED","role":"visible test emitter"},
+    "D2":{"part":"low-power 850nm or 940nm IR LED","role":"IR bench test emitter"},
     "SW1":{"part":"momentary pushbutton","label":"USER_TEST"},
     "SW2":{"part":"normally-open physical interlock","label":"INTERLOCK"},
-    "J1":{"part":"USB-C or Pico USB","label":"POWER/PROGRAM"}
+    "LOAD1":{"part":"resistor + LED benign test load","role":"simulation load"}
   },
-  "rails": {
-    "LOGIC_3V3":"U1 3V3 output / regulated 3.3V rail",
-    "BRUCE_3V3":"3.3V supply for U2",
-    "OPTICAL_TEST_VSW":"switched low-voltage test-load rail",
-    "GND":"common low-voltage reference"
+  "buses":{
+    "I2C":{"SDA":"U1.GP4","SCL":"U1.GP5","devices":["U4","U5","U6","U11"],"pullups":"4.7k nominal once module pullups are accounted for"},
+    "SPI_SD":{"MISO":"GP16","CS":"GP17","SCK":"GP18","MOSI":"GP19"}
   },
-  "gpio": {
-    "GP4":"I2C_SDA",
-    "GP5":"I2C_SCL",
-    "GP6":"LOAD_EN",
-    "GP7":"INTERLOCK_PROOF",
-    "GP8":"FAULT_IN_ACTIVE_LOW",
-    "GP9":"TIMER_A_OK",
-    "GP10":"TIMER_B_OK",
-    "GP11":"LOAD_FB",
-    "GP16":"SD_MISO",
-    "GP17":"SD_CS",
-    "GP18":"SD_SCK",
-    "GP19":"SD_MOSI",
-    "GP20":"HAPTIC_CTRL",
-    "GP21":"USER_TEST_ACTIVE_LOW",
-    "GP25":"STATUS_LED"
+  "power_domains":{
+    "LOGIC_3V3":["U1","U4","U5","U6","U7","U8","U9","U11"],
+    "BRUCE_3V3":["U2","U3"],
+    "TEST_LOAD_VSW":["D1","D2","LOAD1"]
   },
-  "connections": [
-    ["U1.GP4","I2C_SDA"],["U1.GP5","I2C_SCL"],
-    ["I2C_SDA","U4.SDA"],["I2C_SCL","U4.SCL"],
-    ["I2C_SDA","U5.SDA"],["I2C_SCL","U5.SCL"],
-    ["I2C_SDA","U6.SDA"],["I2C_SCL","U6.SCL"],
-    ["I2C_SDA","U11.SDA"],["I2C_SCL","U11.SCL"],
-    ["I2C_SDA","R1.1"],["R1.2","LOGIC_3V3"],
-    ["I2C_SCL","R2.1"],["R2.2","LOGIC_3V3"],
-    ["U1.GP16","U7.MISO"],["U1.GP17","U7.CS"],["U1.GP18","U7.SCK"],["U1.GP19","U7.MOSI"],
-    ["U1.GP20","U6.CTRL"],
-    ["U1.GP21","SW1.1"],["SW1.2","GND"],
-    ["U1.GP25","R3.1"],["R3.2","D3.A"],["D3.K","GND"],
-    ["U1.GP7","SW2.1"],["SW2.2","LOGIC_3V3"],
-    ["U1.GP8","R4.1"],["R4.2","LOGIC_3V3"],
-    ["U1.GP9","U8.OK"],["U1.GP10","U9.OK"],
-    ["U1.GP11","R5.1"],["R5.2","LOAD_FB"],
-    ["U1.GP6","U10.EN"],
-    ["U8.OK","TIMER_A_OK"],["U9.OK","TIMER_B_OK"],
-    ["TIMER_A_OK","U10.PROOF_A"],["TIMER_B_OK","U10.PROOF_B"],
-    ["SW2.2","U10.INTERLOCK"],["U1.GP8","U10.FAULT_IN"],
-    ["U10.IN","LOGIC_3V3"],["U10.OUT","OPTICAL_TEST_VSW"],
-    ["U10.OUT","R6.1"],["R6.2","D4.A"],["D4.K","GND"],
-    ["U10.OUT","R7.1"],["R7.2","Q1.C"],["Q1.E","GND"],
-    ["U11.PWM0","Q1.B"],
-    ["OPTICAL_TEST_VSW","D2.A"],["D2.K","Q1.C"],
-    ["U11.PWM1","Q2.G"],["Q2.S","GND"],["Q2.D","D1.K"],["D1.A","R8.1"],["R8.2","OPTICAL_TEST_VSW"],
-    ["U2.TX","BRUCE_TX"],["U2.RX","BRUCE_RX"],
-    ["BRUCE_TX","U1.TELEMETRY_RX"],["BRUCE_RX","U1.TELEMETRY_TX"],
-    ["U2.VCC","BRUCE_3V3"],["U2.GND","GND"],
-    ["U3.VCC","BRUCE_3V3"],["U3.GND","GND"],
-    ["U1.3V3","LOGIC_3V3"],["U1.GND","GND"],["U4.VCC","LOGIC_3V3"],["U5.VCC","LOGIC_3V3"],["U6.VCC","LOGIC_3V3"],["U7.VCC","LOGIC_3V3"],["U8.VCC","LOGIC_3V3"],["U9.VCC","LOGIC_3V3"],["U11.VCC","LOGIC_3V3"]
+  "nets":{
+    "LOAD_EN":"U1.GP6",
+    "INTERLOCK_PROOF":"U1.GP7",
+    "FAULT_IN":"U1.GP8 active-low",
+    "TIMER_A_OK":"U1.GP9",
+    "TIMER_B_OK":"U1.GP10",
+    "LOAD_FB":"U1.GP11 independent feedback",
+    "VISIBLE":["VIS_EN","VIS_PWM_R","VIS_PWM_G","VIS_PWM_B"],
+    "IR":["IR_EN","IR_PWM","IR_SENSE_OPTIONAL"]
+  },
+  "permission_logic":"LOAD_EN is default LOW and may only remain asserted while interlock proof, Timer A proof, Timer B proof and fault-clear conditions are all continuously valid. Bruce/ESP_AUX cannot satisfy or bypass these proofs.",
+  "connections":[
+    ["U1.GP4","I2C_SDA"],["U1.GP5","I2C_SCL"],["I2C_SDA","U4.SDA"],["I2C_SCL","U4.SCL"],["I2C_SDA","U5.SDA"],["I2C_SCL","U5.SCL"],["I2C_SDA","U6.SDA"],["I2C_SCL","U6.SCL"],["I2C_SDA","U11.SDA"],["I2C_SCL","U11.SCL"],
+    ["U1.GP16","U7.MISO"],["U1.GP17","U7.CS"],["U1.GP18","U7.SCK"],["U1.GP19","U7.MOSI"],["U1.GP20","U6.CTRL"],["U1.GP21","SW1.1"],["SW1.2","GND"],["U1.GP25","STATUS_LED"],
+    ["SW2","INTERLOCK_PROOF"],["U8.OK","TIMER_A_OK"],["U9.OK","TIMER_B_OK"],["U1.GP6","U10.EN"],["U10.OUT","TEST_LOAD_VSW"],["TEST_LOAD_VSW","LOAD_FB_CONDITIONER"],["LOAD_FB_CONDITIONER","U1.GP11"],
+    ["U2.TX","BRUCE_TX"],["U2.RX","BRUCE_RX"],["BRUCE_TX","U1.TELEMETRY_RX"],["BRUCE_RX","U1.TELEMETRY_TX"],["U2.VCC","BRUCE_3V3"],["U2.GND","GND"],["U3.VCC","BRUCE_3V3"],["U3.GND","GND"],
+    ["U11.PWM0","Q1.GATE_OR_BASE"],["Q1","D2"],["U11.PWM1","Q2.GATE"],["Q2","D1"],["D1","CURRENT_LIMIT","TEST_LOAD_VSW"],["D2","CURRENT_LIMIT","TEST_LOAD_VSW"]
   ],
-  "components": {
-    "R1":"4.7k I2C pull-up SDA",
-    "R2":"4.7k I2C pull-up SCL",
-    "R3":"1k status LED resistor",
-    "R4":"10k FAULT_IN pull-up",
-    "R5":"load feedback conditioning resistor; final divider values depend on selected load-switch implementation",
-    "R6":"test-load resistor",
-    "R7":"IR driver base/gate resistor sized for selected low-power LED",
-    "R8":"visible LED current-limit resistor sized for selected LED"
-  },
   "test_points":["TP_3V3","TP_GND","TP_SDA","TP_SCL","TP_LOAD_EN","TP_INTERLOCK","TP_FAULT","TP_TIMER_A","TP_TIMER_B","TP_LOAD_FB","TP_BRUCE_TX","TP_BRUCE_RX","TP_BRUCE_PWR","TP_VISIBLE","TP_IR","TP_TEST_LOAD"],
-  "rules":[
-    "Bruce and ESP_AUX are never part of the permission authority.",
-    "No high-power optical emitter is represented or driven by this build.",
-    "IR is a low-power 850nm bench indicator only.",
-    "Visible lighting is a low-power test engine.",
-    "The RP2350 never directly powers a motor or optical load.",
-    "SD failure cannot prevent shutdown.",
-    "Missing timer/interlock/fault proof forces the controlled test load OFF.",
-    "Exact ESP32 board UART pins must be assigned only after the physical module is selected.",
-    "Exact LTC6993 timing RC values must be calculated from the final required timeout and purchased device.",
-    "Final production optical hardware remains a separate physical engineering gate."
-  ]
+  "software":{"U1":"murmur_p01a_controller.ino","U2":"bruce_murmur_node.ino","U3":"optional auxiliary firmware"},
+  "verification":["power_on_outputs_off","I2C_scan","sensor_failure_safe","SD_failure_safe","interlock_open_off","timer_A_missing_off","timer_B_missing_off","fault_asserted_off","feedback_mismatch_fault","active_timeout_off","reset_during_active_off","Bruce_disconnect_safe","ESP_AUX_disconnect_safe","visible_test","IR_test"],
+  "physical_gates":["exact ESP32 board pinout","exact LTC6993 timing network","regulator/protection values","final load-switch implementation","LED/IR current values","PCB clearances","thermal design","production optical emitter"],
+  "native_cirkit_file":false
 }
