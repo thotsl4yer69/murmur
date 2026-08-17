@@ -1,0 +1,36 @@
+{
+  "project":"MURMUR P01-A",
+  "revision":"3.0.0",
+  "simulation_scope":"complete low-voltage prototype",
+  "controllers":{
+    "U1":{"part":"Raspberry Pi Pico 2 / RP2350","role":"authoritative controller"},
+    "U2":{"part":"ESP32-S3","label":"BRUCE","role":"non-authoritative UI/telemetry"},
+    "U3":{"part":"ESP32-C3/S3","label":"ESP_AUX","role":"optional non-authoritative auxiliary node"}
+  },
+  "buses":{
+    "I2C":{"SDA":"U1.GP4","SCL":"U1.GP5","pullups":"4.7k to LOGIC_3V3","devices":["U4","U5","U6"]},
+    "SPI_SD":{"MISO":"U1.GP16","CS":"U1.GP17","SCK":"U1.GP18","MOSI":"U1.GP19"},
+    "BRUCE_UART":{"TX":"BRUCE_TX","RX":"BRUCE_RX","authority":"telemetry only"}
+  },
+  "devices":{
+    "U4":{"part":"LIS2DU12/LIS3DH","bus":"I2C","address":"0x18 or 0x19"},
+    "U5":{"part":"AS7343","bus":"I2C","address":"0x39"},
+    "U6":{"part":"DRV2605L","bus":"I2C","address":"0x5A","output":"haptic actuator"},
+    "U7":{"part":"microSD 3V3","bus":"SPI_SD"},
+    "U8":{"part":"LTC6993","label":"TIMER_A","output":"TIMER_A_OK","input":"LOAD_EN_REQUEST"},
+    "U9":{"part":"LTC6993","label":"TIMER_B","output":"TIMER_B_OK","input":"LOAD_EN_REQUEST"},
+    "U10":{"part":"TPS22919B/validated equivalent","label":"LOAD_SWITCH","control":"LOAD_PERMIT","output":"TEST_LOAD_VSW"},
+    "U11":{"part":"RGB LED / 3-channel low-voltage LED driver","label":"VISIBLE_LIGHT_ENGINE"},
+    "U12":{"part":"850/940nm low-power IR LED + resistor + transistor/MOSFET driver","label":"IR_TEST_ENGINE"},
+    "U13":{"part":"resistor + LED/test indicator","label":"LOAD_FEEDBACK"}
+  },
+  "rp2350_gpio":{
+    "GP4":"I2C_SDA","GP5":"I2C_SCL","GP6":"LOAD_EN","GP7":"INTERLOCK_PROOF","GP8":"FAULT_IN_ACTIVE_LOW","GP9":"TIMER_A_OK","GP10":"TIMER_B_OK","GP11":"LOAD_FB","GP16":"SD_MISO","GP17":"SD_CS","GP18":"SD_SCK","GP19":"SD_MOSI","GP20":"HAPTIC_CTRL","GP21":"USER_TEST_ACTIVE_LOW","GP25":"STATUS_LED"
+  },
+  "control_chain":["U1.GP6 LOAD_EN","hardware interlock","TIMER_A_OK AND TIMER_B_OK","LOAD_PERMIT","U10 LOAD_SWITCH","TEST_LOAD_VSW"],
+  "independent_inhibit":"FAULT_IN_ACTIVE_LOW",
+  "feedback":"TEST_LOAD_VSW -> U13 -> LOAD_FB -> U1.GP11",
+  "lighting":{"visible":{"supply":"OPTICAL_TEST_VSW","default":"OFF","driver_required":true},"ir":{"supply":"OPTICAL_TEST_VSW","default":"OFF","low_power_test_only":true}},
+  "power":{"LOGIC_3V3":["U1","U4","U5","U6","U7"],"BRUCE_3V3":["U2","U3"],"OPTICAL_TEST_VSW":["U11","U12","U13"]},
+  "test_points":["TP_3V3","TP_GND","TP_SDA","TP_SCL","TP_LOAD_EN","TP_INTERLOCK","TP_FAULT","TP_TIMER_A","TP_TIMER_B","TP_LOAD_FB","TP_BRUCE_TX","TP_BRUCE_RX","TP_BRUCE_PWR","TP_VISIBLE","TP_IR","TP_TEST_LOAD"]
+}
