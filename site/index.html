@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e9">
+  <meta name="description" content="MURMUR — wearable infrastructure for privacy, autonomy and human-controlled technology.">
+  <title>MURMUR — Wear / MOLT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain"></div>
+  <header class="nav">
+    <a class="wordmark" href="#top" aria-label="MURMUR home">MURMUR<span>®</span></a>
+    <nav>
+      <a href="#wear">WEAR</a>
+      <a href="#system">SYSTEM</a>
+      <a href="#lab">LAB</a>
+      <a href="#notes">NOTES</a>
+    </nav>
+    <a class="nav-cta" href="#join">ENTER THE MURMURATION <span>↗</span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse"></span> PRIVATE R&amp;D / 2026</div>
+        <h1>Clothing<br><em>is no longer</em><br>passive.</h1>
+        <p class="hero-lede">MURMUR is a wearable technology platform built around privacy, autonomy and human control. Garments become infrastructure: sensing, computing and responding without demanding that the wearer carry another device.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#wear">Explore the system <span>↓</span></a>
+          <a class="text-link" href="#lab">View the lab <span>↗</span></a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Abstract MURMUR wearable system visualization">
+        <div class="orb orb-a"></div><div class="orb orb-b"></div>
+        <div class="garment">
+          <div class="shoulder shoulder-l"></div><div class="shoulder shoulder-r"></div>
+          <div class="torso"></div><div class="core-mark">M</div>
+          <div class="node node-1">01</div><div class="node node-2">02</div><div class="node node-3">03</div>
+          <div class="line line-1"></div><div class="line line-2"></div><div class="line line-3"></div>
+        </div>
+        <div class="visual-caption mono">P01-A / SYSTEM MAP / 01</div>
+      </div>
+    </section>
+
+    <section class="manifesto band" id="wear">
+      <div class="section-label mono">01 — WEAR</div>
+      <div>
+        <h2>Wear the system.<br><span>Not the screen.</span></h2>
+        <p>MURMUR treats the garment as a distributed interface between the person and their environment. The electronics are modular. The wearer remains authoritative. The clothing stays clothing.</p>
+      </div>
+    </section>
+
+    <section class="cards-section">
+      <article class="feature-card feature-large">
+        <div class="card-top"><span class="mono">WEAR / 001</span><span>01</span></div>
+        <div class="card-art garment-small"><div class="core-dot"></div><div class="scan-ring"></div></div>
+        <h3>Garments as infrastructure.</h3>
+        <p>Electronics are distributed through the garment rather than bolted onto it. Power, sensing, haptics and removable modules are designed as one architecture.</p>
+      </article>
+      <article class="feature-card">
+        <div class="card-top"><span class="mono">MOLT / 002</span><span>02</span></div>
+        <div class="molt-art"><span>CORE</span><span>SENSOR</span><span>POWER</span><span>MODULE</span></div>
+        <h3>Built to change.</h3>
+        <p>MOLT is the principle of removable hardware. Replace the payload, firmware or garment layer without rebuilding the whole system.</p>
+      </article>
+      <article class="feature-card">
+        <div class="card-top"><span class="mono">CONTROL / 003</span><span>03</span></div>
+        <div class="control-art"><div>OFF</div><div>SILENT</div><div>ACTIVE</div></div>
+        <h3>The wearer stays in control.</h3>
+        <p>Explicit states, visible status and hardware-level power control make the system understandable before it becomes useful.</p>
+      </article>
+    </section>
+
+    <section class="system-section" id="system">
+      <div class="section-label mono">02 — SYSTEM</div>
+      <div class="system-intro">
+        <h2>One garment.<br>Many layers.</h2>
+        <p>The first architecture is deliberately modular: a trusted controller, sensing layer, haptic feedback, power system and removable experimental bays.</p>
+      </div>
+      <div class="architecture">
+        <div class="arch-row"><span class="arch-index mono">01</span><div><strong>TRUSTED CORE</strong><small>Pico 2 / RP2350 controller · local state · authoritative control</small></div><span class="status">CORE</span></div>
+        <div class="arch-row"><span class="arch-index mono">02</span><div><strong>SENSING</strong><small>Motion + optical environment sensing · modular bus</small></div><span class="status">INPUT</span></div>
+        <div class="arch-row"><span class="arch-index mono">03</span><div><strong>FEEDBACK</strong><small>Haptics + optical indicators · state without a screen</small></div><span class="status">OUTPUT</span></div>
+        <div class="arch-row"><span class="arch-index mono">04</span><div><strong>POWER</strong><small>Protected battery architecture · switched rails · serviceable harness</small></div><span class="status">POWER</span></div>
+        <div class="arch-row"><span class="arch-index mono">05</span><div><strong>MODULES</strong><small>Removable experimental payload bays · isolated from trusted core</small></div><span class="status">MOLT</span></div>
+      </div>
+    </section>
+
+    <section class="prototype-section" id="lab">
+      <div class="prototype-copy">
+        <div class="section-label mono">03 — LAB / PROTOTYPE 01</div>
+        <h2>P01-A<br><span>the first node.</span></h2>
+        <p>P01-A is the bench prototype for the wearable architecture. It exists to prove the electronics, power behaviour, sensing, feedback and modular interfaces before they are integrated into a garment.</p>
+        <a class="button button-dark" href="#join">Follow the build <span>↗</span></a>
+      </div>
+      <div class="bench">
+        <div class="bench-grid"></div>
+        <div class="board">
+          <div class="board-label mono">MURMUR / P01-A</div>
+          <div class="chip chip-core">RP2350</div>
+          <div class="chip chip-sense">AS7343</div>
+          <div class="chip chip-motion">LIS3DH</div>
+          <div class="chip chip-haptic">DRV2605L</div>
+          <div class="trace t1"></div><div class="trace t2"></div><div class="trace t3"></div><div class="trace t4"></div>
+          <div class="board-status mono">BENCH / DEVELOPMENT</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="research-section">
+      <div class="section-label mono">04 — RESEARCH</div>
+      <div class="research-grid">
+        <article><span class="mono">R/001</span><h3>Privacy by architecture.</h3><p>Reduce dependence on remote services by keeping sensing, state and feedback close to the wearer.</p></article>
+        <article><span class="mono">R/002</span><h3>Modularity over obsolescence.</h3><p>Design the garment around replaceable nodes, not sealed product generations.</p></article>
+        <article><span class="mono">R/003</span><h3>Evidence before claims.</h3><p>Prototype results, measured behaviour and documented limitations determine what MURMUR says publicly.</p></article>
+      </div>
+    </section>
+
+    <section class="quote-section" id="notes">
+      <div class="quote-mark">“</div>
+      <blockquote>Technology should disappear into the things we already live in — without disappearing from our control.</blockquote>
+      <div class="mono quote-meta">MURMUR / DESIGN PRINCIPLE 01</div>
+    </section>
+
+    <section class="join" id="join">
+      <div>
+        <div class="section-label mono">05 — THE MURMURATION</div>
+        <h2>Build quietly.<br><em>Move together.</em></h2>
+      </div>
+      <div class="join-side">
+        <p>Prototype development, garment integration and system research are underway. The public site will evolve with demonstrated hardware rather than promises.</p>
+        <form id="waitlist" action="#join" method="post">
+          <label class="sr-only" for="email">Email address</label>
+          <input id="email" name="email" type="email" placeholder="your@email.com" required>
+          <button type="submit">JOIN <span>↗</span></button>
+        </form>
+        <div class="form-note mono" id="form-note">FIELD NOTES / SIGNAL OPEN</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand">MURMUR<span>®</span></div>
+    <div class="footer-mid mono">WEAR / MOLT / DEVICES / SYSTEMS</div>
+    <div class="footer-right mono">© 2026 MURMUR · PRIVATE R&amp;D</div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
