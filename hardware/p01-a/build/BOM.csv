@@ -1,0 +1,23 @@
+Ref,Qty,Part,Notes
+U1,1,Raspberry Pi Pico 2 RP2350 non-wireless,controller
+U2,1,ESP32-S3 development module,Bruce communications only
+U3,1,ESP32-C3/S3 development module,auxiliary telemetry only
+U4,1,LIS2DU12 or LIS3DH breakout,3.3V I2C
+U5,1,AS7343 breakout,3.3V I2C
+U6,1,DRV2605L breakout + compatible vibration motor,3.3V logic
+U7,1,3.3V-compatible microSD module,verify voltage compatibility
+U8,1,LTC6993 timer,independent proof A
+U9,1,LTC6993 timer,independent proof B
+U10,1,TPS22919B or validated low-voltage load switch,bench test-load rail
+U11,1,PCA9685 PWM expander,3.3V I2C
+R1,1,4.7k,I2C SDA pull-up if not already present
+R2,1,4.7k,I2C SCL pull-up if not already present
+R3+,1,calculated LED current resistor,select from actual LED Vf/current
+IR1,1,low-power 850nm or 940nm IR LED,bench indicator only
+IRDRV,1,logic-level small-signal MOSFET/transistor + gate/base resistor,IR bench driver
+VIS1,1,low-voltage visible LED/RGB assembly,use specified driver for selected module
+LOAD1,1,resistor + LED,benign switched test load
+SW1,1,physical interlock switch,fail-open preferred
+SW2,1,bench test pushbutton,active low
+C*,as required,100nF local bypass + bulk capacitors,place at each IC/module per datasheet
+PSU1,1,regulated 3.3V supply,adequate current margin; separate supply as required by selected modules
