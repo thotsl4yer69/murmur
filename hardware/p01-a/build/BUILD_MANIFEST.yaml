@@ -1,0 +1,31 @@
+project: MURMUR-P01A
+version: 4.0.0
+status: complete-bench-rig-definition
+controller:
+  - U1: Pico 2 RP2350 non-wireless
+  - U2: Bruce ESP32-S3 non-authoritative
+  - U3: ESP32 auxiliary non-authoritative
+sensing:
+  - U4: LIS2DU12/LIS3DH
+  - U5: AS7343
+haptics:
+  - U6: DRV2605L
+storage:
+  - U7: 3.3V microSD
+control:
+  - U8: LTC6993 timer proof A
+  - U9: LTC6993 timer proof B
+  - U10: TPS22919B or validated low-voltage load switch
+  - U11: PCA9685 PWM expander
+outputs:
+  - visible low-voltage LED engine
+  - low-power 850/940nm IR indicator
+  - haptic motor
+power:
+  - LOGIC_3V3
+  - BRUCE_3V3
+  - TEST_LOAD_VSW
+notes:
+  - All output paths default OFF.
+  - Bruce and auxiliary ESP32 have no authority over the permission chain.
+  - Production high-power optical hardware is not electrically specified by this bench manifest; exact emitter/driver/supply/thermal data must be fixed before a production schematic is released.
