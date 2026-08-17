@@ -1,0 +1,22 @@
+{
+  "name": "MURMUR_P01A_Cirkit_Build",
+  "version": "2.1.0",
+  "status": "audited-source-package",
+  "controller": "Pico 2 / RP2350",
+  "communications": "Bruce / ESP32-S3",
+  "simulation_load": "low-voltage resistor/LED",
+  "production_optical_stage": "separate physical engineering gate",
+  "native_cirkit_file": false,
+  "entrypoint": "CIRKIT_AI_BUILD_SPECIFICATION.md",
+  "files": [
+    "MASTER_BUILD.md",
+    "CIRKIT_AI_BUILD_SPECIFICATION.md",
+    "PHYSICAL_NETLIST.md",
+    "BRUCE_INTEGRATION.md",
+    "BUILD_COVERAGE_MATRIX.md",
+    "CIRKIT_UPLOAD_GUIDE.md",
+    "FINAL_DESIGN_REVIEW.md",
+    "murmur_p01a_controller.ino",
+    "bruce_murmur_node.ino"
+  ]
+}
