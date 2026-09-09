@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ 'murmur-system.css' | asset_url }}">
+{{ 'murmur-system.css' | asset_url | stylesheet_tag }}
 <a href="{{ routes.root_url }}" class="murmur-wordmark" aria-label="MURMUR home" {{ block.shopify_attributes }}>MURMUR</a>
 
 {% stylesheet %}
