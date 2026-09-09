@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "murmur_home": {
+      "type": "murmur-home",
+      "settings": {}
+    }
+  },
+  "order": ["murmur_home"]
+}
