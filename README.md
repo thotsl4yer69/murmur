@@ -4,6 +4,10 @@ Production-hardened storefront and operator backend for the MURMUR autonomy plat
 
 The project uses Node.js 22.13+, vanilla browser JavaScript, custom CSS, and Node's built-in SQLite module. It deliberately fails closed around unverified seller identity, live payment credentials, shipping/tax policy, inventory allocations, and physical sizing.
 
+## Current Shopify design
+
+The current MURMUR Shopify storefront source and recovery snapshot live under [`shopify/`](shopify/README.md). The `MURMUR / SYSTEM 01` Shopify theme remains unpublished while it is refined and visually validated. Keep Shopify theme changes mirrored there so the connected store is never the only copy.
+
 ## Commands
 
 ```bash
