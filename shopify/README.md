@@ -1,71 +1,88 @@
 # MURMUR Shopify
 
-Canonical source for the Shopify implementation of the MURMUR storefront.
+Recovery and source-control record for the MURMUR Shopify storefront.
 
-## Source of truth
+## Current state — 18 Sep 2026
 
 - **Repository:** `thotsl4yer69/murmur`
-- **Shopify draft theme:** `MURMUR / SYSTEM 01`
-- **Theme role:** unpublished
-- **Published store theme:** Horizon remains untouched until the MURMUR draft is approved.
+- **Primary domain:** `murmur.qd.je`
+- **MAIN theme:** `MURMUR / SYSTEM 001 — FINAL 17 SEP`
+- **Unpublished patched duplicate:** `MURMUR / SYSTEM 001 — PATCH 18 SEP`
+- **Current paid offer:** `SYSTEM 001 — Founder's Reservation` — A$250
+- **Development catalogue:** COWL, MOLT CORE, VEIL, CREST, PLUME, HUSH and MARK remain development records unless explicitly released
 
-This directory exists so the Shopify theme is never the only copy of the work.
+Shopify Admin is authoritative for the current customer-facing theme, catalogue, publication state and checkout availability. GitHub is the recovery/source-control copy and must be reconciled after direct Shopify changes.
 
-## Structure
+## Public positioning
 
-- `theme/` — customized Horizon theme files used by the draft.
-- `store-state-2026-09-09.json` — recovery snapshot of catalogue, collections, navigation and verified remote theme checksums.
+**GARMENTS AS SYSTEMS.**
 
-## Brand system
+Current public hierarchy:
 
-**GARMENTS AS SYSTEMS.** MURMUR should read first as an experimental fashion house and modular design platform. Technology is structural, removable and serviceable rather than decorative.
+- **MURMUR** — brand/platform
+- **SYSTEM 001** — first public programme
+- **COWL** — garment/shell architecture
+- **MOLT CORE** — removable load-bearing/service carrier
+- **Hardware** — separately validated control, sensing and observer modules
+
+The immediate launch is SYSTEM 001, not the full historical product universe.
+
+## Release controls
+
+The live product template fails closed.
+
+Purchase controls render only when:
+
+1. the product has `murmur.release_approved = true`;
+2. the selected variant has `murmur.release_approved = true`;
+3. the selected variant has a positive price; and
+4. the selected variant is available.
+
+The Founder Reservation is intentionally released under this rule. Development garments remain gated.
+
+Unsupported capability claims must stay out of customer-facing copy. Generated imagery must be identified as development imagery rather than physical prototype evidence.
+
+## Brand/UI system
 
 Palette:
-- Bone `#E8E3D9`
-- Ink `#0F1115`
+- Bone `#F6F4EE`
+- Ink `#101113`
 - Indigo `#24263B`
 - Mineral `#8F909A`
-- Paper `#F2EEE6`
+- Paper `#ECE8DF`
 
-Typography and UI:
-- Anonymous Pro for heading/accent roles through Horizon settings.
-- Inter for body copy.
-- Major headings uppercase, large-scale and tight.
-- Navigation/micro-labels uppercase with deliberate tracking.
-- Square corners, thin 1px rules, no decorative pills.
-- Restrained motion; preserve `prefers-reduced-motion`.
+UI:
+- square corners;
+- thin rules;
+- restrained motion;
+- high-contrast primary actions;
+- explicit keyboard focus states;
+- preserve `prefers-reduced-motion`.
 
-Information architecture:
-- `CURRENT` — current editorial expression.
-- `WEAR` — visible garment layers.
-- `MOLT` — removable structural backbone.
-- `SYSTEM` — platform explanation.
-- `CONTACT` — contact surface.
+### 18 Sep contrast correction
 
-Product naming uses short system names: `COWL`, `VEIL`, `CREST`, `PLUME`, `HUSH`, `MARK`, `MOLT CORE`.
+The product-page black link-button inherited `.md a { color: inherit }`, which could override its intended light foreground. The patched theme raises selector specificity and explicitly preserves light text on the black primary action while keeping the transparent secondary action dark.
 
-## Prototype merchandising rule
+## Evidence/source hierarchy
 
-Until release readiness:
-- products remain DRAFT;
-- `$0` pricing is not presented as customer-facing pricing;
-- purchase and variant controls stay out of the draft product template;
-- product pages function as design dossiers;
-- unsupported capability claims stay out of fashion-facing copy.
+1. Physical measured evidence.
+2. Current release-gate package.
+3. Shopify Admin/current MAIN theme.
+4. Controlled build specification.
+5. GitHub source/recovery copy.
+6. Investor/marketing outputs.
+7. Superseded manuals, renders and historical brand books.
+
+Do not treat a pre-filled acceptance certificate or planned test as executed evidence.
 
 ## Recovery
 
-1. Duplicate a compatible Horizon theme in Shopify.
-2. Apply the files under `theme/` to the duplicate, preserving paths.
-3. Reconcile catalogue, collections and navigation against `store-state-2026-09-09.json`.
-4. Confirm all CDN image URLs resolve.
-5. Preview every breakpoint before publishing.
-6. Never overwrite the live theme as the first recovery step.
-
-Shopify may normalize comments/formatting in JSON theme files. A checksum mismatch is a signal to inspect the diff, not proof of data loss.
+1. Start from the current MAIN theme or latest approved duplicate.
+2. Reconcile the current Shopify catalogue, pages, release metafields and collections.
+3. Confirm SYSTEM 001 reservation purchase state separately from development products.
+4. Confirm all CDN assets resolve.
+5. QA desktop/mobile, contrast, keyboard focus, cart and policy links.
+6. Run an end-to-end reservation checkout test before directing acquisition traffic.
+7. Never infer release readiness from build success alone.
 
 Do not commit Shopify access tokens, customer/order data, private keys, webhook secrets or payment credentials.
-
-## Release rule
-
-Do not publish solely because the code builds. Publish only after responsive visual QA, final imagery, real sizing/pricing, claims matched to demonstrated prototypes, and checkout/policy content are complete.
