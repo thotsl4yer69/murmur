@@ -19,12 +19,9 @@ jobs:
       - uses: arduino/setup-arduino-cli@v2
         with:
           version: '1.3.1'
-      - name: Portable core tests
+      - name: Portable core and pin-profile tests
         working-directory: hardware/blacknode-c3
-        run: |
-          mkdir -p build-evidence
-          g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined tests/core_test.cpp -o /tmp/core-test
-          /tmp/core-test | tee build-evidence/host-tests.txt
+        run: python3 tools/test.py
       - name: Compile all four C3 wiring profiles
         working-directory: hardware/blacknode-c3
         run: bash tools/build.sh

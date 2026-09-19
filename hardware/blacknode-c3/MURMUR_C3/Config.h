@@ -1,4 +1,5 @@
 #pragma once
+#include <stdint.h>
 // 1: existing SportsDeck colour wiring, no CC1101
 // 2: colour TFT + CC1101 (RST/BL rewired to 3V3; see README)
 // 3: SSD1306 128x64 OLED + optional CC1101
