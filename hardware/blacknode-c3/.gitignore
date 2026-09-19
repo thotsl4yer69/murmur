@@ -1,0 +1,3 @@
+build/
+build-evidence/*.log
+build-evidence/*.txt

@@ -1,0 +1,41 @@
+name: BLACKNODE C3 firmware
+on:
+  push:
+    branches: ['firmware/blacknode-c3-20260919', main]
+    paths: ['hardware/blacknode-c3/**', '.github/workflows/murmur-c3.yml']
+  pull_request:
+    paths: ['hardware/blacknode-c3/**', '.github/workflows/murmur-c3.yml']
+permissions:
+  contents: read
+concurrency:
+  group: blacknode-c3-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+        with:
+          version: '1.3.1'
+      - name: Portable core tests
+        working-directory: hardware/blacknode-c3
+        run: |
+          mkdir -p build-evidence
+          g++ -std=c++17 -Wall -Wextra -Werror -fsanitize=address,undefined tests/core_test.cpp -o /tmp/core-test
+          /tmp/core-test | tee build-evidence/host-tests.txt
+      - name: Compile all four C3 wiring profiles
+        working-directory: hardware/blacknode-c3
+        run: bash tools/build.sh
+      - name: Archive compiler output and exact source
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BLACKNODE-C3-${{ github.sha }}
+          path: |
+            hardware/blacknode-c3/build/
+            hardware/blacknode-c3/build-evidence/
+            hardware/blacknode-c3/MURMUR_C3/
+          if-no-files-found: error
+          retention-days: 14
