@@ -12,6 +12,17 @@ Storefront and operator source for the MURMUR wearable platform, currently focus
 
 The legacy 14-product/storefront architecture remains useful as research history, but it is not the current launch scope. The launch path is SYSTEM 001 first.
 
+## Public proof program
+
+MURMUR now publishes product claims as testable protocols before physical execution.
+
+- [Proof Ledger](PROOF_LEDGER.md)
+- [P001 — 60-second MOLT CORE module swap](tests/P001-module-swap.md)
+- Public ledger: https://murmur.qd.je/pages/proof-ledger
+- Media / project kit: https://murmur.qd.je/pages/media-kit
+
+**Rule:** a render is not evidence. Failed runs remain visible, and revised hardware must earn a new result.
+
 ## Source-of-truth hierarchy
 
 1. Measured physical evidence and recorded test results.
