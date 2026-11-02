@@ -1,5 +1,8 @@
 # MURMUR Store v4 — SYSTEM 001
 
+> **Fleet hardware update (2026-11-02):** ESP32-C3 BLACKNODE software is in [PR #3](https://github.com/thotsl4yer69/murmur/pull/3); host logic/pin checks do not establish a native Arduino build, flash, radio detection or accepted wiring. Pico 2 / P01-A wearable assembly remains physically unverified. Treat BLACKNODE V2 graphics as designs requiring exact PCB/sensor/voltage checks before soldering. These engineering statuses are separate from Shopify commercial state. See [fleet audit](https://github.com/thotsl4yer69/fleet/blob/main/FLEET_STATE_2026-11-02.md).
+
+
 Storefront and operator source for the MURMUR wearable platform, currently focused on **SYSTEM 001**: an architectural garment system built around a removable carrier, serviceable hardware and direct wearer control.
 
 ## Current commercial state — 18 Sep 2026
