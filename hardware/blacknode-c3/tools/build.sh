@@ -6,7 +6,7 @@ INDEX=https://espressif.github.io/arduino-esp32/package_esp32_index.json
 arduino-cli core update-index --additional-urls "$INDEX"
 arduino-cli core install esp32:esp32@3.3.12 --additional-urls "$INDEX"
 arduino-cli lib update-index
-arduino-cli lib install 'Adafruit GFX Library@1.12.6' 'Adafruit ST7735 and ST7789 Library@1.11.0' 'NimBLE-Arduino@2.5.1' 'RadioLib@7.7.1' 'U8g2@2.37.1'
+arduino-cli lib install --no-deps 'Adafruit BusIO@1.17.4' 'Adafruit seesaw Library@1.7.9' 'SD@1.3.0' 'Adafruit GFX Library@1.12.6' 'Adafruit ST7735 and ST7789 Library@1.11.0' 'NimBLE-Arduino@2.5.1' 'RadioLib@7.7.1' 'U8g2@2.36.19'
 mkdir -p build-evidence
 arduino-cli version | tee build-evidence/cli.txt
 arduino-cli core list | tee build-evidence/cores.txt

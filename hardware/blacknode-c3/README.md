@@ -56,7 +56,7 @@ Keep `MURMUR_C3.ino`, `Node.h`, `Config.h` and `Core.h` together. The .ino is th
 | Adafruit ST7735 and ST7789 Library | 1.11.0 |
 | NimBLE-Arduino | 2.5.1 |
 | RadioLib | 7.7.1 |
-| U8g2 | 2.37.1 |
+| U8g2 | 2.36.19 |
 
 Accept required library dependencies. IDE settings: ESP32C3 Dev Module; USB CDC On Boot enabled; 4MB flash; DIO; Huge APP 3MB/no OTA; no PSRAM. ArduinoDroid must retain all four files and provide the matching C3 core/libraries; its bundled core is not assumed equivalent.
 
