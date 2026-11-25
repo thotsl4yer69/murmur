@@ -1,0 +1,18 @@
+# Merge this entry into the HA rest integration on the same host/network namespace.
+rest:
+  - resource: http://127.0.0.1:8731/api/status
+    scan_interval: 5
+    sensor:
+      - name: MURMUR BLACKNODE job
+        unique_id: murmur_blacknode_job
+        value_template: "{{ value_json.job }}"
+        availability: "{{ value_json.job is defined }}"
+        json_attributes:
+          - firmware
+          - profile
+          - boot
+          - heap
+          - minheap
+          - uptime_ms
+          - reset
+          - utc

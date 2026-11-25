@@ -1,0 +1,7 @@
+# BLACKNODE service terminal
+
+The host service polls the C3 firmware's existing USB status command at five-second intervals. It records valid replies in SQLite with a UTC receipt timestamp and serves the latest observation at `/api/status`. The browser at `/` reads that same endpoint. Disconnects clear the current observation. Data older than twelve seconds returns HTTP 503. Stored samples remain queryable in the SQLite status table.
+
+On a computer with Python 3.9+ and pyserial installed, run `python telemetry.py --port /dev/ttyACM0` using the actual enumerated node port. Windows uses COM port names. The default endpoint is http://127.0.0.1:8731/. The included Home Assistant REST configuration uses that same network namespace. A container on another network needs an explicitly reachable address. The default service binds to loopback, has read-only HTTP endpoints and issues only the serial status command.
+
+The Android terminal uses Espressif native USB Serial/JTAG (303a:1001) with the CDC data interface. It verifies the firmware's status reply before exposing commands. The onboard USB-UART bridge and Android's USB-host port are different transports. Connect the C3 through its native USB interface. Export commands use the firmware's existing CSV output; Save transcript exports the most recent 128 KiB of text through the Android document picker. A host and phone cannot both own the same USB connection.

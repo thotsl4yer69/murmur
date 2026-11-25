@@ -1,0 +1,31 @@
+name: SYSTEM 001 terminals and bench evidence
+on:
+  pull_request:
+    paths:
+      - 'android/terminal/**'
+      - 'hardware/system-001/**'
+      - '.github/workflows/system-001-bench.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -v -s hardware/system-001/tools
+      - run: python3 -m unittest discover -v -s hardware/system-001/host
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Build and verify engineering APK
+        shell: bash
+        run: |
+          sdkmanager 'platforms;android-35' 'build-tools;35.0.0'
+          export MURMUR_KS_PASS="$(openssl rand -hex 24)"
+          keytool -genkeypair -keystore "$RUNNER_TEMP/bench.p12" -storepass:env MURMUR_KS_PASS -alias bench -keyalg RSA -keysize 3072 -validity 365 -dname 'CN=MURMUR engineering bench'
+          python3 android/terminal/build.py --sdk "$ANDROID_HOME" --jdk "$JAVA_HOME" --keystore "$RUNNER_TEMP/bench.p12" --out dist/MURMUR-Terminal-bench.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MURMUR-Android-bench
+          path: dist/MURMUR-Terminal-bench.apk

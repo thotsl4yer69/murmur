@@ -15,7 +15,7 @@ import java.util.regex.*;
 
 public final class Terminal extends Activity {
     private static final String PERMIT = "studio.murmur.system001.USB";
-    private static final Pattern ID = Pattern.compile("^# BLACKNODE \\S+ profile=([1-4]) boot=[0-9a-fA-F]{8} job=\\S+ heap=\\d+ minheap=\\d+ uptime_ms=\\d+ reset=\\d+$");
+    private static final Pattern ID = Pattern.compile("^# BLACKNODE \\S+ profile=([1-4]) boot=[0-9a-fA-F]{8} job=[A-Z ]{1,16} heap=\\d+ minheap=\\d+ uptime_ms=\\d+ reset=\\d+$");
     private final ArrayBlockingQueue<String> writes = new ArrayBlockingQueue<>(16);
     private UsbManager usb;
     private UsbDevice selected;
